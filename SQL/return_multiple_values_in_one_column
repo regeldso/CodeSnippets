@@ -1,0 +1,22 @@
+CREATE FUNCTION [dbo].[GetAliasesById]
+(
+    @userID int
+)
+RETURNS varchar(max)
+AS
+BEGIN
+    declare @output varchar(max)
+    select @output = COALESCE(@output + ', ', '') + alias
+    from UserAliases
+    where userid = @userID
+
+    return @output
+END
+
+GO
+
+SELECT UserID, dbo.GetAliasesByID(UserID)
+FROM UserAliases
+GROUP BY UserID
+
+GO
