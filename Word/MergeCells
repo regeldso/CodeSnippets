@@ -1,0 +1,17 @@
+private void MergeTable(Word.Table table)
+    {
+      Word.Cell cell;
+      int rowIndex = 2;                //Starting of 2 row to ignore first row
+      int blockIndex = (table.Rows.Count - 1) / 4;  //Block of 4 rows to be merged and -1 to ignore first row in the table
+      int coloumnIndex = 4;              //Selecting first 4 coloums
+
+      for (int blockCounter = 1; blockCounter < blockIndex; blockCounter++)
+      {
+        for (int colCounter = 1; colCounter <= coloumnIndex; colCounter++)
+        {
+          cell = table.Cell(rowIndex, colCounter);
+          cell.Merge(table.Cell(cell.RowIndex + 3, colCounter));
+        }
+        rowIndex += 4;				  //Updated rowIndex to the start of the next 4 rows
+      }
+    }
